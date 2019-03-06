@@ -1,0 +1,9 @@
+{%  include 'common.html' %}
+
+<form action="/question2_execute" method="get">
+    <input type="submit" value="Execute">
+</form>
+
+{% if chart%}
+    <embed type="image/svg+xml" src= {{ chart|safe }} />
+{% endif %}
