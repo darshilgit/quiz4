@@ -1,0 +1,25 @@
+{%  include 'common.html' %}
+
+{#<form action="/question1_execute" method="get">#}
+{#    Enter magnitude<input type="text" name="mag" method="get" >#}
+{#    Enter type of operation: <select name="oper">#}
+{#                      <option value="<"><</option>#}
+{#                      <option value=">">></option>#}
+{#                      <option value="=">=</option>#}
+{#                    </select>#}
+{#    with cache?: <select name="form">#}
+{#                      <option value="no">no</option>#}
+{#                      <option value="yes">yes</option>#}
+{#                    </select>#}
+{#    <input type="submit" value="Execute">#}
+{#    <input type="submit" name= "form" value="ExecuteCache" />#}
+{#</form>#}
+
+<form action="/question1_execute" method="get">
+    <input type="submit" value="Execute">
+</form>
+
+
+{% if result%}
+    <h1> {{result}} </h1>
+{% endif %}
