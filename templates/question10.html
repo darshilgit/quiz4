@@ -1,0 +1,12 @@
+{%  include 'common.html' %}
+
+<form action="/question10_execute" method="get">
+    Enter year<input type="text" name="year" method="get" >
+    Enter range<input type="text" name="range" method="get" >
+
+    <input type="submit" value="Execute">
+</form>
+
+{% if chart%}
+    <embed type="image/svg+xml" src= {{ chart|safe }} />
+{% endif %}
