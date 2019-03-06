@@ -163,5 +163,40 @@ def question7_execute():
     return render_template('question7.html', chart=bar_chart.render_data_uri())
 
 
+@app.route('/question9', )
+def question9():
+    return render_template('question9.html')
+@app.route('/question9_execute',  methods=['GET'])
+def question9_execute():
+    code = request.args.get('code')
+    lyear = int(request.args.get('lyear'))
+    hyear = int(request.args.get('hyear'))
+    interval = int(request.args.get('inter'))
+    cursor = conn.cursor()
+    xy_chart = pygal.XY(stroke=False)
+    xy_chart.title = 'BL (in %)'
+    years = []
+    for i in range(lyear, hyear+interval, interval):
+        years.append(i)
+    print(years)
+    #xy_chart.x_labels = map(str, range(lyear, hyear+interval, interval))
+    #codes = ["IND","AFG"]
+    #for code in codes:
+    sql = "select entity, BLPercent from educationshare where Code = " + "'" + code + "'"
+    print(sql)
+    result = cursor.execute(sql).fetchall()
+    bl_values = []
+    country = result[0][0]
+    print('country')
+    print(country)
+    for i in range(len(result)):
+        bl_values.append(result[i][1])
+    print('bl')
+    print(bl_values)
+    abc = list(zip(years,bl_values))
+    xy_chart.add(country, abc)
+    return render_template('question9.html', chart=xy_chart.render_data_uri())
+
+
 if __name__ == '__main__':
     app.run()
