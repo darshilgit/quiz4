@@ -126,5 +126,42 @@ def question4_execute():
         line_chart.add(country, bp_values)
     return render_template('question4.html', chart=line_chart.render_data_uri())
 
+
+@app.route('/question7', )
+def question7():
+    return render_template('question7.html')
+
+@app.route('/question7_execute',  methods=['GET'])
+def question7_execute():
+    bar_chart = pygal.Bar(width=1000, height=500)
+    year = str(request.args.get('year'))
+    year = 'y_'+year
+    lrange1 = request.args.get('lrange1')
+    hrange1 = request.args.get('hrange1')
+    lrange2 = request.args.get('lrange2')
+    hrange2 = request.args.get('hrange2')
+    lrange3 = request.args.get('lrange3')
+    hrange3 = request.args.get('hrange3')
+    range = [lrange1 +'-' + hrange1, lrange2 +'-' + hrange2, lrange3 +'-' + hrange3]
+    print(range)
+    cursor = conn.cursor()
+    sql = "select count(State) from population where " + year + " between " + "'" + lrange1 + "'" + " and " + "'" + hrange1 + "'"
+    sql1 = "select count(State) from population where " + year + " between " + "'" + lrange2 + "'" + " and " + "'" + hrange2 + "'"
+    sql2 = "select count(State) from population where " + year + " between " + "'" + lrange3 + "'" + " and " + "'" + hrange3 + "'"
+    print(sql)
+    result = cursor.execute(sql).fetchall()
+    print(result)
+    answers = []
+    answers.append(result[0][0])
+    result = cursor.execute(sql1).fetchall()
+    answers.append(result[0][0])
+    result = cursor.execute(sql2).fetchall()
+    answers.append(result[0][0])
+    bar_chart.add(range[0], answers[0])
+    bar_chart.add(range[1], answers[1])
+    bar_chart.add(range[2], answers[2])
+    return render_template('question7.html', chart=bar_chart.render_data_uri())
+
+
 if __name__ == '__main__':
     app.run()

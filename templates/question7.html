@@ -1,0 +1,16 @@
+{%  include 'common.html' %}
+
+<form action="/question7_execute" method="get">
+    Enter year<input type="text" name="year" method="get" >
+    Enter lrange1<input type="text" name="lrange1" method="get" >
+    Enter hrange1<input type="text" name="hrange1" method="get" >
+    Enter lrange2<input type="text" name="lrange2" method="get" >
+    Enter hrange2<input type="text" name="hrange2" method="get" >
+    Enter lrange3<input type="text" name="lrange3" method="get" >
+    Enter hrange3<input type="text" name="hrange3" method="get" >
+    <input type="submit" value="Execute">
+</form>
+
+{% if chart%}
+    <embed type="image/svg+xml" src= {{ chart|safe }} />
+{% endif %}
